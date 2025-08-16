@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <!-- اصلاح: حذف {{ }} از CSS -->
   <style>html{scroll-behavior:smooth}</style>
 </head>
 <body>
@@ -31,7 +30,6 @@
       <input id="q" class="search" placeholder="جستجو در عناوین..." oninput="filterCards()" />
     </div>
   </header>
-
   <main>
     <div class="wrap">
       <h2 style="margin:16px 0 8px">{{ heading }}</h2>
@@ -55,24 +53,21 @@
       </div>
     </div>
   </main>
-
   <footer class="footer">
     <div class="wrap">
       آخرین به‌روزرسانی: <b>{{ updated_at }}</b> — متن‌باز در گیت‌هاب.
     </div>
   </footer>
-
-  <!-- اصلاح: کل اسکریپت داخل raw تا Jinja با JS قاطی نکند -->
   {% raw %}
   <script>
-    function filterCards() {
+    function filterCards(){
       const q = document.getElementById('q').value.trim().toLowerCase();
       const cards = document.querySelectorAll('#cards .card');
-      cards.forEach(c => {
+      cards.forEach(c=>{{
         const title = c.getAttribute('data-title').toLowerCase();
         c.style.display = title.includes(q) ? '' : 'none';
-      });
-    }
+      }});
+    }}
   </script>
   {% endraw %}
 </body>
