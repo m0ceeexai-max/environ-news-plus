@@ -58,8 +58,9 @@
       آخرین به‌روزرسانی: <b>{{ updated_at }}</b> — متن‌باز در گیت‌هاب.
     </div>
   </footer>
+  {% raw %}
   <script>
-    function filterCards(){{
+    function filterCards(){
       const q = document.getElementById('q').value.trim().toLowerCase();
       const cards = document.querySelectorAll('#cards .card');
       cards.forEach(c=>{{
@@ -68,5 +69,6 @@
       }});
     }}
   </script>
+  {% endraw %}
 </body>
 </html>
