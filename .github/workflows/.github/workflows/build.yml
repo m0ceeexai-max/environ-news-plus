@@ -1,0 +1,35 @@
+name: Build & Deploy RSS Site
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # هر ۶ ساعت
+  workflow_dispatch: {}
+
+permissions:
+  contents: write  # برای push به شاخه gh-pages لازم است
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build site
+        run: python scripts/build.py
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          force_orphan: true
