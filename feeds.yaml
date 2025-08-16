@@ -1,0 +1,22 @@
+# لیست فیدهای RSS — هر بخش را بر اساس نیاز خود اصلاح کنید
+# اگر منبعی فیلتر دارد (مثلاً مناقصه)، آن را در بخش مربوط اضافه کنید.
+# ساختار:
+# <category>:
+#   - <rss url>
+# دسته‌ها: environment, water, wastewater, oil_gas_petrochem, tenders
+environment:
+  - https://news.un.org/feed/subscribe/en/news/topic/climate-change/feed/rss.xml
+  - https://www.unep.org/rss.xml
+  - https://feeds.bbci.co.uk/news/science_and_environment/rss.xml
+water:
+  - https://www.worldbank.org/en/topic/watersupply/rss
+  - https://www.waterworld.com/rss
+wastewater:
+  - https://www.watertechonline.com/rss
+oil_gas_petrochem:
+  - https://www.offshore-technology.com/feed/
+  - https://feeds.feedburner.com/oilprice-com
+tenders:
+  # نمونه‌ها (ممکن است برخی کشور-محور باشند). در صورت نیاز منابع داخلی خود را اضافه کنید.
+  - https://tenders.globaldatabase.com/rss
+  - https://www.dgmarket.com/rss/notice.xml
