@@ -1,1 +1,26 @@
-{% extends 'layout.html' %}{% block body %}{% endblock %}
+{% extends 'layout.html' %}
+{% block body %}
+  <h2 class="title">همه دسته‌ها</h2>
+
+  {% for nav in site.nav %}
+    {% set cat_items = (pages.get(nav.key) or [])[:20] %}
+    <section class="block">
+      <h3 class="section-title">
+        <a href="{{ nav.key }}.html">{{ nav.label }}</a>
+      </h3>
+      {% if cat_items %}
+        <ul class="cards">
+          {% for it in cat_items %}
+            <li class="card" data-title="{{ it.title|lower }}">
+              <a class="title" href="{{ it.link }}" target="_blank" rel="noopener">{{ it.title }}</a>
+              <div class="meta">{{ it.source }} — {{ it.published }}</div>
+              {% if it.summary %}<p class="summary">{{ it.summary }}</p>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="empty">هنوز آیتمی برای این دسته نیست.</div>
+      {% endif %}
+    </section>
+  {% endfor %}
+{% endblock %}
