@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>اخبار آب | اخبار محیط‌زیست و انرژی</title>
+  <meta name="description" content="گردآوری اخبار محیط‌زیست، آب، فاضلاب، نفت/گاز/پتروشیمی و مناقصه‌ها">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>html{scroll-behavior:smooth}</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12c0-4.97 4.03-9 9-9 3.3 0 6.19 1.78 7.78 4.44L12 12v9c-4.97 0-9-4.03-9-9Z" stroke="currentColor" stroke-width="1.5"/><path d="M12 12 7 7" stroke="currentColor" stroke-width="1.5"/></svg>
+        <h1>Environ News+</h1>
+        <small>گردآوری خودکار از منابع معتبر + مناقصه‌ها</small>
+      </div>
+      <div class="catnav">
+        <a href="./index.html">همه</a>
+        <a href="./environment.html">محیط‌زیست</a>
+        <a href="./water.html">آب</a>
+        <a href="./wastewater.html">فاضلاب</a>
+        <a href="./oil_gas_petrochem.html">نفت/گاز/پتروشیمی</a>
+        <a href="./tenders.html">مناقصه‌ها</a>
+      </div>
+      <input id="q" class="search" placeholder="جستجو در عناوین..." oninput="filterCards()" />
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <h2 style="margin:16px 0 8px">اخبار آب</h2>
+      <div class="grid" id="cards">
+        
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      آخرین به‌روزرسانی: <b>2025-08-18 15:41 UTC</b> — متن‌باز در گیت‌هاب.
+    </div>
+  </footer>
+  
+  <script>
+    function filterCards(){
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('#cards .card');
+      cards.forEach(c=>{{
+        const title = c.getAttribute('data-title').toLowerCase();
+        c.style.display = title.includes(q) ? '' : 'none';
+      }});
+    }}
+  </script>
+  
+</body>
+</html>
