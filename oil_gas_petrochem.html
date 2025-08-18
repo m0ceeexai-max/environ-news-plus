@@ -2,58 +2,213 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>اخبار نفت/گاز/پتروشیمی | اخبار محیط‌زیست و انرژی</title>
-  <meta name="description" content="گردآوری اخبار محیط‌زیست، آب، فاضلاب، نفت/گاز/پتروشیمی و مناقصه‌ها">
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>html{scroll-behavior:smooth}</style>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>oil_gas_petrochem | Environ News +</title>
+  <meta name="description" content="گردآوری خودکار اخبار محیط‌زیست، آب، فاضلاب، نفت و گاز و مناقصه‌ها">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="title">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12c0-4.97 4.03-9 9-9 3.3 0 6.19 1.78 7.78 4.44L12 12v9c-4.97 0-9-4.03-9-9Z" stroke="currentColor" stroke-width="1.5"/><path d="M12 12 7 7" stroke="currentColor" stroke-width="1.5"/></svg>
-        <h1>Environ News+</h1>
-        <small>گردآوری خودکار از منابع معتبر + مناقصه‌ها</small>
-      </div>
-      <div class="catnav">
-        <a href="./index.html">همه</a>
-        <a href="./environment.html">محیط‌زیست</a>
-        <a href="./water.html">آب</a>
-        <a href="./wastewater.html">فاضلاب</a>
-        <a href="./oil_gas_petrochem.html">نفت/گاز/پتروشیمی</a>
-        <a href="./tenders.html">مناقصه‌ها</a>
-      </div>
-      <input id="q" class="search" placeholder="جستجو در عناوین..." oninput="filterCards()" />
-    </div>
-  </header>
-  <main>
-    <div class="wrap">
-      <h2 style="margin:16px 0 8px">اخبار نفت/گاز/پتروشیمی</h2>
-      <div class="grid" id="cards">
-        
-      </div>
-    </div>
-  </main>
-  <footer class="footer">
-    <div class="wrap">
-      آخرین به‌روزرسانی: <b>2025-08-18 19:29 UTC</b> — متن‌باز در گیت‌هاب.
-    </div>
-  </footer>
+<header class="wrap">
+  <div class="brand">
+    <a href="index.html" class="logo">+Environ News</a>
+    <small>گردآوری خودکار از منابع معتبر + مناقصه‌ها</small>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html" class="chip ">همه</a>
+    
+      <a href="environment.html" class="chip ">محیط‌زیست</a>
+    
+      <a href="water.html" class="chip ">آب</a>
+    
+      <a href="wastewater.html" class="chip ">فاضلاب</a>
+    
+      <a href="oil_gas_petrochem.html" class="chip active">نفت/گاز/پتروشیمی</a>
+    
+      <a href="tenders.html" class="chip ">مناقصه‌ها</a>
+    
+  </nav>
+
+  <div class="toolbar">
+    <input id="q" type="search" class="search" placeholder="...جستجو در عنوان‌ها" oninput="filterCards()" />
+  </div>
+</header>
+
+<main class="wrap">
   
-  <script>
-    function filterCards(){
-      const q = document.getElementById('q').value.trim().toLowerCase();
-      const cards = document.querySelectorAll('#cards .card');
-      cards.forEach(c=>{{
-        const title = c.getAttribute('data-title').toLowerCase();
-        c.style.display = title.includes(q) ? '' : 'none';
-      }});
-    }}
-  </script>
   
+  <h2 class="title">نفت/گاز/پتروشیمی</h2>
+  
+    <ul class="cards">
+      
+        <li class="card" data-title="trump’s energy dominance runs into opec’s price trap">
+          <a class="title" href="https://oilprice.com/Energy/Energy-General/Trumps-Energy-Dominance-Runs-Into-OPECs-Price-Trap.html" target="_blank" rel="noopener">Trump’s Energy Dominance Runs Into OPEC’s Price Trap</a>
+          <div class="meta">Oilprice.com — 2025-08-18 20:00 UTC</div>
+          <p class="summary">The return of previously curtailed oil production by OPEC+ members is killing U.S. shale growth, with industry executives referring to it as a “price war” to the Financial Times. A prediction by the IEA of a deep oil glut is not helping, either. The shale industry is facing tough times. “We are not </p>
+        </li>
+      
+        <li class="card" data-title="hydrogen’s hype is dead — and that’s good news">
+          <a class="title" href="https://oilprice.com/Alternative-Energy/Fuel-Cells/Hydrogens-Hype-Is-Dead-And-Thats-Good-News.html" target="_blank" rel="noopener">Hydrogen’s Hype Is Dead — And That’s Good News</a>
+          <div class="meta">Oilprice.com — 2025-08-18 19:00 UTC</div>
+          <p class="summary">Let’s start with the punchline: a wave of canceled hydrogen megaprojects is not a disaster, it’s a sign of success. The sector is maturing fast, shedding the glam tours and stick-to-the-basics players who couldn’t deliver, and leaving room for quietly effective pioneers. The hype bubble burst (and r</p>
+        </li>
+      
+        <li class="card" data-title="brent, wti edge higher as zelensky arrives in washington for talks with trump">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Brent-WTI-Edge-Higher-as-Zelensky-Arrives-in-Washington-for-Talks-With-Trump.html" target="_blank" rel="noopener">Brent, WTI Edge Higher as Zelensky Arrives in Washington for Talks With Trump</a>
+          <div class="meta">Oilprice.com — 2025-08-18 18:30 UTC</div>
+          <p class="summary">Brent crude rose 1.02% to $66.52 per barrel and West Texas Intermediate (WTI) climbed 0.96% to $63.40 on Monday, as Ukrainian President Volodymyr Zelensky arrived in Washington for talks with President Donald Trump. Traders are watching closely for potential shifts in U.S. sanctions on Russian expor</p>
+        </li>
+      
+        <li class="card" data-title="texas may have to shut down data centers to protect its energy grid">
+          <a class="title" href="https://oilprice.com/Energy/Energy-General/Texas-May-Have-to-Shut-Down-Data-Centers-to-Protect-Its-Grid.html" target="_blank" rel="noopener">Texas May Have to Shut Down Data Centers to Protect Its Energy Grid</a>
+          <div class="meta">Oilprice.com — 2025-08-18 18:00 UTC</div>
+          <p class="summary">Texas is preparing to cut off power to data centers during grid emergencies — a sign of just how strained the system has become. Over the Fourth of July, deadly floods swept across central Texas, disrupting infrastructure and causing widespread outages. Meanwhile, the Electric Reliability Council of</p>
+        </li>
+      
+        <li class="card" data-title="solar stocks score major gains on trump policy clarification">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Solar-Stocks-Score-Major-Gains-on-Trump-Policy-Clarification.html" target="_blank" rel="noopener">Solar Stocks Score Major Gains on Trump Policy Clarification</a>
+          <div class="meta">Oilprice.com — 2025-08-18 17:30 UTC</div>
+          <p class="summary">U.S. solar equities surged on Monday after the Treasury Department issued updated guidance on renewable energy tax credits, delivering long-awaited clarity for developers and investors. The decision provided relief to residential solar providers, which had faced months of uncertainty over whether ne</p>
+        </li>
+      
+        <li class="card" data-title="who will benefit the most from argentina’s shale oil boom?">
+          <a class="title" href="https://oilprice.com/Energy/Energy-General/Who-Will-Benefit-the-Most-From-Argentinas-Shale-Oil-Boom.html" target="_blank" rel="noopener">Who Will Benefit the Most From Argentina’s Shale Oil Boom?</a>
+          <div class="meta">Oilprice.com — 2025-08-18 17:00 UTC</div>
+          <p class="summary">In a shock development, crisis-prone Argentina, South America’s second-largest economy, recently emerged as the continent’s third-largest oil producer. The surge in unconventional hydrocarbon output from Vaca Muerta, one of the world&#39;s top five shale formations, is driving significant growth in oil </p>
+        </li>
+      
+        <li class="card" data-title="brazil extends aram block deadline as petrobras confirms new oil finds">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Brazil-Extends-Aram-Block-Deadline-as-Petrobras-Confirms-New-Oil-Finds.html" target="_blank" rel="noopener">Brazil Extends Aram Block Deadline as Petrobras Confirms New Oil Finds</a>
+          <div class="meta">Oilprice.com — 2025-08-18 16:30 UTC</div>
+          <p class="summary">Brazil’s oil and gas regulator ANP has approved an 18-month extension of the exploration period for the Aram block in the Santos Basin pre-salt, pushing the deadline for Petrobras and China’s CNOOC to meet their commitments to June 30, 2029, according to BNamericas. The move gives the consortium mor</p>
+        </li>
+      
+        <li class="card" data-title="u.s. trade deal triggers shut down of britain&#39;s biggest bioethanol plant">
+          <a class="title" href="https://oilprice.com/Energy/Energy-General/US-Trade-Deal-Triggers-Shut-Down-of-Britains-Biggest-Bioethanol-Plant.html" target="_blank" rel="noopener">U.S. Trade Deal Triggers Shut Down of Britain&#39;s Biggest Bioethanol Plant</a>
+          <div class="meta">Oilprice.com — 2025-08-18 16:00 UTC</div>
+          <p class="summary">The UK’s largest bioethanol plant is to shut, its owner has said, after the government decided not offer the struggling factory an emergency funding settlement after months of fraught negotiations. Vivergo Fuels had been locked in talks over its future with the business department since June, after </p>
+        </li>
+      
+        <li class="card" data-title="u.s. and iraq discuss kurdistan oil export dispute">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/US-and-Iraq-Discuss-Kurdistan-Oil-Export-Dispute.html" target="_blank" rel="noopener">U.S. and Iraq Discuss Kurdistan Oil Export Dispute</a>
+          <div class="meta">Oilprice.com — 2025-08-18 15:30 UTC</div>
+          <p class="summary">Top U.S. and Iraqi officials have discussed the potential resumption of oil exports from Iraq’s semi-autonomous region of Kurdistan and the role of the U.S. oil companies operating in the country, the Iraqi foreign ministry said on Monday. Oil exports from Kurdistan have now been halted for two and </p>
+        </li>
+      
+        <li class="card" data-title="zelensky to meet trump as europe rallies behind ukraine’s security demands">
+          <a class="title" href="https://oilprice.com/Geopolitics/Europe/Zelensky-to-Meet-Trump-as-Europe-Rallies-Behind-Ukraines-Security-Demands.html" target="_blank" rel="noopener">Zelensky to Meet Trump as Europe Rallies Behind Ukraine’s Security Demands</a>
+          <div class="meta">Oilprice.com — 2025-08-18 15:00 UTC</div>
+          <p class="summary">Ukrainian President Volodymyr Zelenskyy, bolstered by the presence of key European allies, is set to meet President Donald Trump in a session that could help decide his embattled nation&#39;s future, even as Trump appeared to shift the burden to Zelenskyy to end the war with Russia. &#34;President Zelenskyy</p>
+        </li>
+      
+        <li class="card" data-title="china’s fuel exports jump to 13-month high">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Chinas-Fuel-Exports-Jump-to-13-Month-High.html" target="_blank" rel="noopener">China’s Fuel Exports Jump to 13-Month High</a>
+          <div class="meta">Oilprice.com — 2025-08-18 14:30 UTC</div>
+          <p class="summary">China exported in July the highest volume of refined petroleum products since June 2024 as shipments of gasoline, diesel, and jet fuel surged by double digits from a year earlier to multi-month highs. Total oil product shipments, including gasoline, diesel, aviation fuel, and marine fuel, increased </p>
+        </li>
+      
+        <li class="card" data-title="speculators drive oil futures to most bearish positioning since 2009">
+          <a class="title" href="https://oilprice.com/Energy/Energy-General/Speculators-Drive-Oil-Futures-to-Most-Bearish-Positioning-Since-2009.html" target="_blank" rel="noopener">Speculators Drive Oil Futures to Most Bearish Positioning Since 2009</a>
+          <div class="meta">Oilprice.com — 2025-08-18 14:04 UTC</div>
+          <p class="summary">Money managers have continued to sell off WTI crude futures contracts and are now the most bearish on the U.S. benchmark in 16 years, the latest positioning data from exchanges showed. At the end of the week to August 12, speculators held the first-ever combined net short across the two major WTI co</p>
+        </li>
+      
+        <li class="card" data-title="us appeals court grants argentina’s request to delay ypf stake turnover">
+          <a class="title" href="https://www.offshore-technology.com/news/us-appeals-court-argentina-stay-ypf-stake-turnover/" target="_blank" rel="noopener">US appeals court grants Argentina’s request to delay YPF stake turnover</a>
+          <div class="meta">Offshore Technology — 2025-08-18 13:57 UTC</div>
+          <p class="summary">A US appeals court has granted Argentina a temporary reprieve by putting on hold a judge&#39;s order to turn over its 51% stake in oil and gas company YPF.</p>
+        </li>
+      
+        <li class="card" data-title="empire petroleum secures ruling to develop co₂ eor pilot in new mexico">
+          <a class="title" href="https://www.offshore-technology.com/news/empire-petroleum-ruling-co%e2%82%82-eor-pilot-new-mexico/" target="_blank" rel="noopener">Empire Petroleum secures ruling to develop CO₂ EOR pilot in New Mexico</a>
+          <div class="meta">Offshore Technology — 2025-08-18 13:51 UTC</div>
+          <p class="summary">Empire Petroleum has secured a unanimous ruling from the NMOCD, confirming the company&#39;s exclusive rights to the ROZ within the EMSU in Lea County, New Mexico, US.</p>
+        </li>
+      
+        <li class="card" data-title="hungary says russian oil flows halted after ukrainian attack on druzhba pipeline">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Hungary-Says-Russian-Oil-Flows-Halted-After-Ukrainian-Attack-on-Druzhba-Pipeline.html" target="_blank" rel="noopener">Hungary Says Russian Oil Flows Halted After Ukrainian Attack on Druzhba Pipeline</a>
+          <div class="meta">Oilprice.com — 2025-08-18 13:25 UTC</div>
+          <p class="summary">Oil flows via the Druzhba pipeline from Russia to Hungary have been halted, following a Ukrainian attack on a transformer station, Hungarian Foreign Minister Peter Szijjarto said on Monday. “Ukraine has attacked again the oil pipeline to Hungary, which has halted petroleum transportation to our coun</p>
+        </li>
+      
+        <li class="card" data-title="russia’s sanctioned arctic lng project seeks buyers in asia, again">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Russias-Sanctioned-Arctic-LNG-Project-Seeks-Buyers-in-Asia-Again.html" target="_blank" rel="noopener">Russia’s Sanctioned Arctic LNG Project Seeks Buyers in Asia, Again</a>
+          <div class="meta">Oilprice.com — 2025-08-18 12:23 UTC</div>
+          <p class="summary">Russia’s Arctic LNG 2 export facility, which is sanctioned by the United States, is coming back to life after a year of no activity and is looking for buyers in Asia. At least four tankers carrying LNG from Russia’s flagship Arctic project have departed in recent days from the export facility via th</p>
+        </li>
+      
+        <li class="card" data-title="trump’s trade adviser says india must stop buying russian oil">
+          <a class="title" href="https://oilprice.com/Latest-Energy-News/World-News/Trumps-Trade-Adviser-Says-India-Must-Stop-Buying-Russian-Oil.html" target="_blank" rel="noopener">Trump’s Trade Adviser Says India Must Stop Buying Russian Oil</a>
+          <div class="meta">Oilprice.com — 2025-08-18 11:00 UTC</div>
+          <p class="summary">India should halt purchases of Russian crude oil as the trade undermines efforts to isolate Moscow, the White House trade adviser Peter Navarro wrote in an op-ed published in the Financial Times on Monday. The world’s third-largest crude oil importer, India, has significantly boosted Russian oil imp</p>
+        </li>
+      
+        <li class="card" data-title="russian decree may enable exxonmobil to reclaim share in sakhalin-1">
+          <a class="title" href="https://www.offshore-technology.com/news/russian-decree-exxon-mobil-reclaim-share-sakhalin-1/" target="_blank" rel="noopener">Russian decree may enable ExxonMobil to reclaim share in Sakhalin-1</a>
+          <div class="meta">Offshore Technology — 2025-08-18 10:18 UTC</div>
+          <p class="summary">A recent decree signed by Russian President Vladimir Putin could pave the way for ExxonMobil to reclaim its 30% operator share in the Sakhalin-1 oil and gas project.</p>
+        </li>
+      
+        <li class="card" data-title="centrica signs long-term agreement with devon energy for natural gas supply">
+          <a class="title" href="https://www.offshore-technology.com/news/centrica-agreement-devon-energy-natural-gas-supply/" target="_blank" rel="noopener">Centrica signs long-term agreement with Devon Energy for natural gas supply</a>
+          <div class="meta">Offshore Technology — 2025-08-18 10:08 UTC</div>
+          <p class="summary">Devon Energy has secured a long-term natural gas sale and purchase agreement (SPA) with Centrica Energy, the trading arm of Centrica, marking a significant move in the energy sector.</p>
+        </li>
+      
+        <li class="card" data-title="the us to drive north america’s transmission pipeline length additions by 2030">
+          <a class="title" href="https://www.offshore-technology.com/analyst-comment/us-drive-north-americas-transmission-pipeline-length-additions-2030/" target="_blank" rel="noopener">The US to drive North America’s transmission pipeline length additions by 2030</a>
+          <div class="meta">Offshore Technology — 2025-08-18 10:08 UTC</div>
+          <p class="summary">North America is poised to witness substantial oil and gas trunk/transmission pipeline length additions, accounting for approximately 15% of the total upcoming (planned and announced) global pipeline length by 2030.</p>
+        </li>
+      
+        <li class="card" data-title="bpcl reportedly procures ten million barrels of us oil via five-month tender">
+          <a class="title" href="https://www.offshore-technology.com/news/bpcl-10-million-barrels-us-oil-five-month-tender/" target="_blank" rel="noopener">BPCL reportedly procures ten million barrels of US oil via five-month tender</a>
+          <div class="meta">Offshore Technology — 2025-08-18 08:22 UTC</div>
+          <p class="summary">BPCL, India&#39;s state-owned oil firm, has awarded a five-month tender for the procurement of ten million barrels (mbbl) of US oil to Glencore.</p>
+        </li>
+      
+        <li class="card" data-title="aramco signs $11bn jafurah midstream deal with global infrastructure partners">
+          <a class="title" href="https://www.offshore-technology.com/news/aramco-11bn-jafurah-midstream-gip/" target="_blank" rel="noopener">Aramco signs $11bn Jafurah midstream deal with Global Infrastructure Partners</a>
+          <div class="meta">Offshore Technology — 2025-08-18 08:11 UTC</div>
+          <p class="summary">Saudi Aramco signed a $11bn agreement for its Jafurah gas processing facilities with a consortium of investors, led by funds managed by GIP.</p>
+        </li>
+      
+        <li class="card" data-title="coastal bend lng integrates ai solutions from classvi.ai">
+          <a class="title" href="https://www.offshore-technology.com/news/coastal-bend-lng-classvi-ai/" target="_blank" rel="noopener">Coastal Bend LNG integrates AI solutions from ClassVI.AI</a>
+          <div class="meta">Offshore Technology — 2025-08-14 13:46 UTC</div>
+          <p class="summary">Coastal Bend LNG is set to utilise AI solutions from American start-up ClassVI.AI to prepare its permitting application with the FERC.</p>
+        </li>
+      
+        <li class="card" data-title="halliburton secures north sea well stimulation services deal">
+          <a class="title" href="https://www.offshore-technology.com/news/halliburton-north-sea-well-stimulation-services/" target="_blank" rel="noopener">Halliburton secures North Sea well stimulation services deal</a>
+          <div class="meta">Offshore Technology — 2025-08-14 13:40 UTC</div>
+          <p class="summary">E&amp;amp;P company ConocoPhillips Skandinavia has awarded Halliburton a five-year contract to provide comprehensive well stimulation services.</p>
+        </li>
+      
+        <li class="card" data-title="ebrd provides €500m loan to ukraine’s naftogaz for emergency gas purchases">
+          <a class="title" href="https://www.offshore-technology.com/news/ebrd-e500m-loan-naftogaz-emergency-gas-purchases/" target="_blank" rel="noopener">EBRD provides €500m loan to Ukraine’s Naftogaz for emergency gas purchases</a>
+          <div class="meta">Offshore Technology — 2025-08-14 10:33 UTC</div>
+          <p class="summary">The EBRD has extended a €500m ($585m) loan to Ukrainian gas company Naftogaz to finance emergency gas purchases.</p>
+        </li>
+      
+    </ul>
+  
+
+</main>
+
+<footer class="wrap">
+  <div class="muted">آخرین به‌روزرسانی: <b>2025-08-18 20:12 UTC</b> — متنی از گیت‌هاب.</div>
+</footer>
+
+<script>
+  function filterCards(){
+    const q = (document.getElementById('q').value || "").trim().toLowerCase();
+    const cards = document.querySelectorAll('.cards .card');
+    cards.forEach(c => {
+      const title = (c.getAttribute('data-title') || "").toLowerCase();
+      c.style.display = title.includes(q) ? '' : 'none';
+    });
+  }
+</script>
 </body>
 </html>
