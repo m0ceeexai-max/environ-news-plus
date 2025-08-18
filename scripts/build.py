@@ -1,118 +1,129 @@
-import os, json, hashlib
-import yaml, feedparser
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-from dateutil import parser as dtparser
+#!/usr/bin/env python3
+from pathlib import Path
 from datetime import datetime, timezone
+import re
+import sys
 
-ROOT = os.path.dirname(os.path.dirname(__file__))
-TPL_DIR = os.path.join(ROOT, "templates")
-OUT = os.path.join(ROOT, "site")
-os.makedirs(OUT, exist_ok=True)
+import yaml
+import feedparser
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-with open(os.path.join(ROOT, "config_site.json"), encoding="utf-8") as f:
-    SITE = json.load(f)
-with open(os.path.join(ROOT, "feeds.yaml"), encoding="utf-8") as f:
-    FEEDS = yaml.safe_load(f)
+ROOT = Path(__file__).resolve().parents[1]
+TEMPLATES = ROOT / "templates"
+OUT = ROOT / "site"
 
-env = Environment(
-    loader=FileSystemLoader(TPL_DIR),
-    autoescape=select_autoescape(['html','xml'])
-)
-base_tpl = env.get_template("layout.html")
+def clean_html(text: str) -> str:
+    if not text:
+        return ""
+    # حذف تگ‌ها و کوتاه‌سازی
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:300]
 
-cat_titles = {
-    "environment": "محیط‌زیست",
-    "water": "آب",
-    "wastewater": "فاضلاب",
-    "oil_gas_petrochem": "نفت/گاز/پتروشیمی",
-    "tenders": "مناقصه‌ها"
-}
-
-def norm_date(entry):
-    for key in ("published", "updated", "created"):
-        val = entry.get(key)
-        if val:
+def parse_date(entry):
+    # تلاش برای گرفتن تاریخ قابل مقایسه
+    dt = None
+    for key in ("published_parsed", "updated_parsed"):
+        if getattr(entry, key, None):
             try:
-                return dtparser.parse(val)
+                dt = datetime(*getattr(entry, key)[:6], tzinfo=timezone.utc)
+                break
             except Exception:
                 pass
-    # feedparser puts parsed time in published_parsed sometimes
-    if entry.get("published_parsed"):
-        try:
-            from datetime import datetime
-            return datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
-        except Exception:
-            pass
-    return datetime.now(timezone.utc)
+    return dt or datetime.now(timezone.utc)
 
-def hash_key(s): return hashlib.sha1(s.encode("utf-8")).hexdigest()
+def fetch_feed(url, title_hint=""):
+    # یوزر ایجنت صریح؛ بعضی سایت‌ها بدون UA جواب نمی‌دهند
+    parsed = feedparser.parse(url, request_headers={
+        "User-Agent": "EnvironNewsBot/1.0 (+https://github.com/)",
+        "Accept": "application/rss+xml, application/atom+xml;q=0.9, */*;q=0.8",
+    })
+    if parsed.bozo:
+        print(f"[WARN] Problem parsing: {url} -> {parsed.bozo_exception}", file=sys.stderr)
+    items = []
+    for e in parsed.entries:
+        items.append({
+            "title": e.get("title", "").strip(),
+            "link": e.get("link", "").strip(),
+            "summary": clean_html(e.get("summary") or e.get("description") or ""),
+            "published": parse_date(e).strftime("%Y-%m-%d %H:%M"),
+            "source": (parsed.feed.get("title") or title_hint).strip(),
+        })
+    return items
 
-items_all = []
-for cat, urls in FEEDS.items():
-    for url in urls or []:
-        try:
-            feed = feedparser.parse(url)
-            source_title = (feed.feed.get("title") or "").strip()
-            for e in feed.entries[:100]:
-                link = e.get("link") or ""
-                title = (e.get("title") or "").strip()
-                if not title or not link: 
-                    continue
-                dt = norm_date(e)
-                items_all.append({
-                    "id": hash_key(link or title),
-                    "title": title,
-                    "link": link,
-                    "summary": (e.get("summary") or "").strip()[:280],
-                    "iso_date": dt.astimezone(timezone.utc).isoformat(),
-                    "human_date": dt.strftime("%Y-%m-%d"),
-                    "category": cat,
-                    "category_fa": cat_titles.get(cat, cat),
-                    "source": source_title[:40]
-                })
-        except Exception as ex:
-            print("ERR feed", url, ex)
+def load_config():
+    cfg_path = ROOT / "feeds.yaml"
+    with cfg_path.open("r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
 
-# dedupe by link hash, keep latest
-seen = {}
-for it in sorted(items_all, key=lambda x: x["iso_date"], reverse=True):
-    key = it["id"]
-    if key not in seen:
-        seen[key] = it
-deduped = list(seen.values())
+def aggregate(cfg):
+    all_items_by_cat = {}
+    for cat, feeds in (cfg.get("feeds") or {}).items():
+        bucket = []
+        for f in feeds or []:
+            url = f.get("url")
+            title = f.get("title", "")
+            if not url:
+                continue
+            print(f"[INFO] Fetch {cat}: {url}")
+            try:
+                bucket.extend(fetch_feed(url, title_hint=title))
+            except Exception as ex:
+                print(f"[ERROR] fetch failed: {url} -> {ex}", file=sys.stderr)
+        # حذف لینک‌های تکراری و مرتب‌سازی
+        seen = set()
+        uniq = []
+        for it in bucket:
+            if not it["link"] or it["link"] in seen:
+                continue
+            seen.add(it["link"])
+            uniq.append(it)
+        uniq.sort(key=lambda x: x["published"], reverse=True)
+        all_items_by_cat[cat] = uniq[:120]  # سقف معقول
+        print(f"[DONE] {cat}: {len(all_items_by_cat[cat])} items")
+    return all_items_by_cat
 
-# per-category slice
-by_cat = {c: [] for c in cat_titles}
-for it in deduped:
-    if it["category"] in by_cat:
-        by_cat[it["category"]].append(it)
-maxn = int(SITE.get("max_items_per_category", 60))
-for c in by_cat:
-    by_cat[c] = sorted(by_cat[c], key=lambda x: x["iso_date"], reverse=True)[:maxn]
-
-# build pages (index = all)
-updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-def render_page(filename, heading, items):
-    html = base_tpl.render(
-        page_title=heading,
-        heading=heading,
-        items=items,
-        updated_at=updated_at,
-        site=SITE
+def render(pages):
+    env = Environment(
+        loader=FileSystemLoader(str(TEMPLATES)),
+        autoescape=select_autoescape(["html"])
     )
-    with open(os.path.join(OUT, filename), "w", encoding="utf-8") as f:
-        f.write(html)
+    OUT.mkdir(exist_ok=True)
+    # رندر صفحات دسته‌ها
+    for cat, items in pages.items():
+        tpl_name = f"{cat}.html"
+        tpl_path = TEMPLATES / tpl_name
+        if tpl_path.exists():
+            html = env.get_template(tpl_name).render(items=items, updated_at=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
+            (OUT / tpl_name).write_text(html, encoding="utf-8")
+        else:
+            print(f"[WARN] template missing: {tpl_name}", file=sys.stderr)
 
-all_items = sorted(deduped, key=lambda x: x["iso_date"], reverse=True)[: sum(len(v) for v in by_cat.values())]
-render_page("index.html", "همه دسته‌ها", all_items)
-render_page("environment.html", "اخبار محیط‌زیست", by_cat["environment"])
-render_page("water.html", "اخبار آب", by_cat["water"])
-render_page("wastewater.html", "اخبار فاضلاب", by_cat["wastewater"])
-render_page("oil_gas_petrochem.html", "اخبار نفت/گاز/پتروشیمی", by_cat["oil_gas_petrochem"])
-render_page("tenders.html", "مناقصه‌ها", by_cat["tenders"])
+    # رندر صفحه‌ی اصلی (اگر هست)
+    index_tpl = TEMPLATES / "index.html"
+    if index_tpl.exists():
+        all_items = []
+        for v in pages.values():
+            all_items.extend(v)
+        # کمی کوتاه‌تر برای صفحه‌ی اول
+        all_items.sort(key=lambda x: x["published"], reverse=True)
+        html = env.get_template("index.html").render(
+            items=all_items[:200],
+            pages=pages,
+            updated_at=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        )
+        (OUT / "index.html").write_text(html, encoding="utf-8")
 
-# copy static assets
-import shutil
-shutil.copy(os.path.join(TPL_DIR,"styles.css"), os.path.join(OUT,"styles.css"))
+    # کپی استایل
+    css = TEMPLATES / "styles.css"
+    if css.exists():
+        (OUT / "styles.css").write_text(css.read_text(encoding="utf-8"), encoding="utf-8")
 
-print(f"Built {len(all_items)} items across {len(by_cat)} categories → site/")
+def main():
+    cfg = load_config()
+    pages = aggregate(cfg)
+    render(pages)
+    print("[OK] build finished, wrote to site/")
+
+if __name__ == "__main__":
+    main()
