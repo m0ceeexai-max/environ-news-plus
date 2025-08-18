@@ -1,1 +1,33 @@
-{% extends 'layout.html' %}{% block body %}{% endblock %}
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>اخبار نفت، گاز و پتروشیمی</h1>
+
+  {# سعی می‌کنیم روی هر اسمی که build.py پاس می‌دهد کار کند #}
+  {% set collection = items or posts or news or feed_items or feeds['oil_gas_petrochem'] %}
+
+  <div class="cards" id="cards">
+    {% for item in collection %}
+      <a class="card"
+         href="{{ item.link }}"
+         target="_blank" rel="noopener"
+         data-title="{{ (item.title or '')|lower }}">
+        <h3>{{ item.title }}</h3>
+
+        {% if item.source %}
+          <div class="meta">{{ item.source }}</div>
+        {% endif %}
+
+        {% if item.published %}
+          <div class="meta">{{ item.published }}</div>
+        {% endif %}
+
+        {% if item.summary %}
+          <p>{{ item.summary }}</p>
+        {% endif %}
+      </a>
+    {% else %}
+      <p class="empty">فعلاً خبری برای نمایش وجود ندارد.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
