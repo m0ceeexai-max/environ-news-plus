@@ -1,30 +1,26 @@
 feeds:
   environment:
-    - url: https://www.unep.org/rss.xml
-      title: UNEP
-    - url: https://news.mongabay.com/feed/
-      title: Mongabay Environment
+    - url: https://feeds.bbci.co.uk/news/science_and_environment/rss.xml
+      title: BBC Environment
+    - url: https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml
+      title: NYT Climate
 
   water:
-    - url: https://www.waterworld.com/rss
-      title: WaterWorld
     - url: https://www.circleofblue.org/feed/
       title: Circle of Blue
+    - url: https://www.wateronline.com/rss/hub.ashx
+      title: Water Online
 
   wastewater:
-    - url: https://www.watertechonline.com/rss
-      title: Water Tech Online
     - url: https://www.tpomag.com/rss
-      title: Treatment Plant Operator
-
-  tenders:
-    - url: https://www.devex.com/rss/tenders
-      title: Devex Tenders
-    - url: https://tenders.globaldatabase.com/rss
-      title: Global Tenders
+      title: Treatment Plant Operator (TPO)
 
   oil_gas_petrochem:
-    - url: https://www.oilandgastechnology.net/rss.xml
-      title: Oil & Gas Technology
+    - url: https://oilprice.com/rss/main
+      title: OilPrice
     - url: https://www.offshore-technology.com/feed/
       title: Offshore Technology
+
+  tenders:
+    - url: https://www.tenders.gov.au/atom/opportunities.rss
+      title: Australia Tenders (demo)
