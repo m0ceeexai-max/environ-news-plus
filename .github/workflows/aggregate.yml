@@ -29,20 +29,12 @@ jobs:
         run: |
           python scripts/build.py
 
-      - name: Copy built files from site/ to repo root
+      - name: Copy built files (site/ -> repo root)
         run: |
-          if [ -d "site" ]; then
-            rsync -av --delete site/ ./ \
-              --exclude '.git' \
-              --exclude '.github' \
-              --exclude 'scripts' \
-              --exclude 'templates' \
-              --exclude 'feeds.yaml' \
-              --exclude 'requirements.txt' \
-              --exclude 'config_site.json'
-          else
-            echo "site/ not found. Did build.py write to a different folder?" && exit 1
-          fi
+          test -d site || { echo "site/ not found"; exit 1; }
+          # کپی همه‌ی خروجی‌ها به ریشه‌ی ریپو (Pages از main/root سرو می‌شود)
+          shopt -s dotglob
+          cp -r site/* .
 
       - name: Commit & push if changed
         run: |
