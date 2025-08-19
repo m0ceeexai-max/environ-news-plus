@@ -152,9 +152,9 @@ html = tpl.render(site=site)  # اگر در کد شما اسم context چیز د
 (SITE_DIR / "crawler.html").write_text(html, encoding="utf-8")
 
     # copy styles.css if present
-    css = TEMPLATES / "styles.css"
-    if css.exists():
-        (OUT / "styles.css").write_text(css.read_text(encoding="utf-8"), encoding="utf-8")
+        css = TEMPLATES / "styles.css"
+        if css.exists():
+            (OUT / "styles.css").write_text(css.read_text(encoding="utf-8"), encoding="utf-8")
 
     print("[OK] render finished")
 
