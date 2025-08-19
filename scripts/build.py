@@ -146,6 +146,10 @@ def render(pages):
             pages=pages,
         )
         (OUT / "index.html").write_text(html, encoding="utf-8")
+        # --- Build crawler page ---
+tpl = env.get_template("crawler.html")
+html = tpl.render(site=site)  # اگر در کد شما اسم context چیز دیگه‌ایه، همان را بگذار
+(SITE_DIR / "crawler.html").write_text(html, encoding="utf-8")
 
     # copy styles.css if present
     css = TEMPLATES / "styles.css"
