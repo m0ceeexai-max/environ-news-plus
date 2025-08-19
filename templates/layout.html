@@ -19,6 +19,12 @@
     {% for it in site.nav %}
       <a href="{{ it.key }}.html" class="chip {% if page_title==it.key %}active{% endif %}">{{ it.label }}</a>
     {% endfor %}
+      {% for section in site.sections %}
+    <a href="{{ section.slug }}/index.html" class="chip">{{ section.title }}</a>
+  {% endfor %}
+
+  <!-- لینک ثابت به صفحهٔ crawler -->
+  <a href="crawler.html" class="chip">جستجوی مناقصات</a>
   </nav>
 
   <div class="toolbar">
