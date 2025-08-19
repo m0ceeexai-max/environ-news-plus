@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>جستجوی خودکار مناقصات | Environ News +</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .kw{font-weight:800;margin:8px 0 6px}
+    .res{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+    .res li{background:#111827;border:1px solid #1f2937;border-radius:12px;padding:12px}
+    .res a{color:#60a5fa;font-weight:700;text-decoration:none}
+    .res a:hover{text-decoration:underline}
+    .muted{color:#9ca3af}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>جستجوی خودکار مناقصات (گوگل/سایت‌های آزاد)</h1>
+    <div id="updated" class="muted"></div>
+    <div id="container"></div>
+  </div>
+
+<script>
+(async function(){
+  const box = document.getElementById('container');
+  const updated = document.getElementById('updated');
+  try{
+    const res = await fetch('data/crawler.json', {cache: 'no-store'});
+    if(!res.ok) throw new Error('no crawler.json yet');
+    const data = await res.json();
+    updated.textContent = "آخرین اجرا: " + (data.updated_at || "—");
+
+    data.queries.forEach(q=>{
+      const h = document.createElement('h2');
+      h.className = 'kw';
+      h.textContent = 'کلیدواژه: ' + q.keyword;
+      box.appendChild(h);
+
+      if(q.error){
+        const p = document.createElement('p');
+        p.className = 'muted';
+        p.textContent = 'خطا: ' + q.error;
+        box.appendChild(p);
+        return;
+      }
+      if(!q.items || q.items.length===0){
+        const p = document.createElement('p');
+        p.className = 'muted';
+        p.textContent = 'موردی یافت نشد.';
+        box.appendChild(p);
+        return;
+      }
+
+      const ul = document.createElement('ul');
+      ul.className = 'res';
+      q.items.forEach(it=>{
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = it.link; a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = it.title || it.link;
+        const sn = document.createElement('div');
+        sn.className = 'muted';
+        sn.textContent = it.snippet || '';
+        li.appendChild(a);
+        li.appendChild(sn);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    });
+  }catch(err){
+    updated.textContent = 'هنوز داده‌ای تولید نشده. اکشن را یک‌بار دستی اجرا کن.';
+  }
+})();
+</script>
+</body>
+</html>
